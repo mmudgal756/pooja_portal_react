@@ -54,6 +54,9 @@ function Login() {
         flexDirection: 'column',
         alignItems: 'center',
         mt: 8,
+        p: 4,
+        boxShadow: '0px 3px 15px rgba(0,0,0,0.2)',
+        borderRadius: '8px',
       }}
     >
       <Typography variant="h4" component="h1" gutterBottom>

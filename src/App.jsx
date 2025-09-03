@@ -16,8 +16,8 @@ import { Landmark } from 'lucide-react'; // Changed from Temple to Landmark
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Samagri from './pages/Samagri';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Login from './common-components/Login';
+import Signup from './common-components/Signup';
 
 function App() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -90,9 +90,6 @@ function App() {
               <Box>
                 <Button color="inherit" component={Link} to="/login">
                   Login
-                </Button>
-                <Button color="inherit" component={Link} to="/signup">
-                  Signup
                 </Button>
               </Box>
             )}
