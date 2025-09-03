@@ -21,8 +21,9 @@ Puja Portal is a web application that provides a one-stop solution for all pooja
 
 ### E-commerce
 
-*   **Add to Cart:** Users can add products to their shopping cart from the "Our Products" page.
+*   **Add to Cart:** Users can add products to their shopping cart from the "Our Products" page. If the same product is added again, its quantity is increased.
 *   **Shopping Cart:** A shopping cart drawer displays the items added to the cart, the total price, and allows for item removal.
+*   **Quantity Management:** Users can increase or decrease the quantity of each item directly within the shopping cart. If an item's quantity is reduced to zero, it is automatically removed from the cart.
 *   **Checkout:** A checkout button is available in the shopping cart, leading to a future checkout process.
 
 ### Styling

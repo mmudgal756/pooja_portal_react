@@ -31,11 +31,28 @@ function App() {
   };
 
   const handleAddToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === product.id);
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
   };
 
   const handleRemoveFromCart = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  };
+
+  const handleUpdateQuantity = (productId, quantity) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === productId ? { ...item, quantity: Math.max(0, quantity) } : item
+      ).filter(item => item.quantity > 0)
+    );
   };
 
   const handleCartOpen = () => {
@@ -45,6 +62,8 @@ function App() {
   const handleCartClose = () => {
     setIsCartOpen(false);
   };
+
+  const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <Router>
@@ -56,7 +75,7 @@ function App() {
           handleMenu={handleMenu}
           handleClose={handleClose}
           handleLogout={handleLogout}
-          cartItemCount={cart.length}
+          cartItemCount={cartItemCount}
           handleCartOpen={handleCartOpen}
         />
         <Cart 
@@ -64,6 +83,7 @@ function App() {
           open={isCartOpen}
           onClose={handleCartClose}
           onRemoveFromCart={handleRemoveFromCart}
+          onUpdateQuantity={handleUpdateQuantity}
         />
         <Box component="main" sx={{ flexGrow: 1, py: 3 }}>
           <Container>
