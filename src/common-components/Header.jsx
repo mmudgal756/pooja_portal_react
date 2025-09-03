@@ -9,23 +9,34 @@ import {
   Menu,
   MenuItem,
   Button,
+  Badge,
 } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
-import { Landmark } from 'lucide-react';
+import { AccountCircle, Storefront, ShoppingCart } from '@mui/icons-material';
+import Logo from '../assets/images/logo.svg';
 
-function Header({ isAuthenticated, anchorEl, open, handleMenu, handleClose, handleLogout }) {
+function Header({ isAuthenticated, anchorEl, open, handleMenu, handleClose, handleLogout, cartItemCount, handleCartOpen }) {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Landmark size={32} style={{ marginRight: '12px' }} />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            Puja Portal
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
+            <img src={Logo} alt="logo" style={{ width: 40, height: 40, marginRight: '10px' }} />
+            <span>Puja Portal</span>
           </Link>
         </Typography>
-        <Button color="inherit" component={Link} to="/our-products">
+        <Button color="inherit" component={Link} to="/our-products" startIcon={<Storefront />}>
           Our Products
         </Button>
+        <IconButton
+          size="large"
+          aria-label={`show ${cartItemCount} new items in cart`}
+          color="inherit"
+          onClick={handleCartOpen}
+        >
+          <Badge badgeContent={cartItemCount} color="error">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
         {isAuthenticated ? (
           <div>
             <IconButton

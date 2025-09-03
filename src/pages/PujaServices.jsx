@@ -13,7 +13,7 @@ const services = [
     id: 2,
     name: 'Griha Pravesh Puja',
     description: 'A housewarming ceremony to purify the new home and invite blessings.',
-    image: 'https://images.unsplash.com/photo-1599596230048-8c17f549553b?q=80&w=2070&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://images.unsplash.com/photo-1599596230048-8c17f549553b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     price: 7100,
   },
   {
@@ -25,16 +25,19 @@ const services = [
   },
 ];
 
-function Services() {
+function PujaServices() {
   return (
-    <Box sx={{ mt: 4 }}>
+    <Box sx={{ mt: 4, textAlign: 'center' }}>
       <Typography variant="h4" component="h1" gutterBottom>
         Pooja Services
       </Typography>
-      <Grid container spacing={4}>
+      <Typography variant="body1" sx={{ mb: 4 }}>
+        Book our expert Pandits for your sacred ceremonies. We provide experienced and knowledgeable priests for all your ritual needs.
+      </Typography>
+      <Grid container spacing={4} justifyContent="center">
         {services.map((service) => (
           <Grid item key={service.id} xs={12} sm={6} md={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
               <CardMedia
                 component="img"
                 height="140"
@@ -60,4 +63,4 @@ function Services() {
   );
 }
 
-export default Services;
+export default PujaServices;

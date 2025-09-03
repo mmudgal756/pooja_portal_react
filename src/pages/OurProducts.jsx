@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Box, Grid, Card, CardContent, CardMedia } from '@mui/material';
+import { Typography, Box, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
+import { AddShoppingCart } from '@mui/icons-material';
 
 const samagri = [
   {
@@ -25,16 +26,19 @@ const samagri = [
   },
 ];
 
-function OurProducts() {
+function OurProducts({ onAddToCart }) {
   return (
-    <Box sx={{ mt: 4 }}>
+    <Box sx={{ mt: 4, textAlign: 'center' }}>
       <Typography variant="h4" component="h1" gutterBottom>
-        Our Products
+        Poojan Samagri
       </Typography>
-      <Grid container spacing={4}>
+      <Typography variant="body1" sx={{ mb: 4 }}>
+        All you need for your rituals, delivered to your doorstep. High-quality items for an authentic experience.
+      </Typography>
+      <Grid container spacing={4} justifyContent="center">
         {samagri.map((item) => (
           <Grid item key={item.id} xs={12} sm={6} md={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
               <CardMedia
                 component="img"
                 height="140"
@@ -51,6 +55,14 @@ function OurProducts() {
                 <Typography variant="h6" component="p" sx={{ mt: 2, fontWeight: 'bold', color: 'primary.main' }}>
                   ₹{item.price}
                 </Typography>
+                <Button
+                  variant="contained"
+                  startIcon={<AddShoppingCart />}
+                  sx={{ mt: 2 }}
+                  onClick={() => onAddToCart(item)}
+                >
+                  Add to Cart
+                </Button>
               </CardContent>
             </Card>
           </Grid>

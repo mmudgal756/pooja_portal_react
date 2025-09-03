@@ -2,7 +2,7 @@
 
 ## Overview
 
-Puja Portal is a web application that provides a one-stop solution for all pooja needs. Users can browse and book various pooja services, as well as purchase pooja samagri (items).
+Puja Portal is a web application that provides a one-stop solution for all pooja needs. Users can browse and book various pooja services, as well as purchase pooja samagri (items) with an integrated shopping cart.
 
 ## Design and Features
 
@@ -15,9 +15,15 @@ Puja Portal is a web application that provides a one-stop solution for all pooja
 ### Pages
 
 *   **Home:** The home page features a hero section with a welcoming image and a clear call to action. It also showcases a selection of featured services to engage users.
-*   **Services:** The services page displays a list of available pooja services with images and descriptions.
-*   **Samagri:** The samagri page showcases a variety of pooja items that users can purchase.
+*   **Puja Services:** The Puja Services page (formerly Services) displays a list of available pooja services with images and descriptions.
+*   **Our Products (Samagri):** The Our Products page showcases a variety of pooja items that users can purchase.
 *   **Login & Signup:** Basic login and signup pages are included for user authentication.
+
+### E-commerce
+
+*   **Add to Cart:** Users can add products to their shopping cart from the "Our Products" page.
+*   **Shopping Cart:** A shopping cart drawer displays the items added to the cart, the total price, and allows for item removal.
+*   **Checkout:** A checkout button is available in the shopping cart, leading to a future checkout process.
 
 ### Styling
 
