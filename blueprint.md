@@ -26,6 +26,14 @@ Puja Portal is a web application that provides a one-stop solution for all pooja
 *   **Quantity Management:** Users can increase or decrease the quantity of each item directly within the shopping cart. If an item's quantity is reduced to zero, it is automatically removed from the cart.
 *   **Checkout:** A checkout button is available in the shopping cart, leading to a future checkout process.
 
+### Backend Integration
+
+*   **API Service:** The application fetches product data from a backend API.
+*   **Environment Variables:** The API base URL is stored in a `.env` file for easy configuration.
+*   **Product Service:** A dedicated `ProductsService.js` handles all API requests related to products, promoting a clean and organized codebase.
+*   **Error Handling:** The application includes error handling for API requests and displays a user-friendly message if an error occurs.
+*   **Loading State:** A loading indicator is displayed while the application is fetching data from the API, providing a better user experience.
+
 ### Styling
 
 *   **Component Library:** The application uses Material-UI for its components, providing a consistent and modern design.
