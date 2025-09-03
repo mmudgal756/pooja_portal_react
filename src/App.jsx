@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
 import Header from './common-components/Header';
 import Footer from './common-components/Footer';
-import Home from './pages/Home';
 import Services from './pages/Services';
-import Samagri from './pages/Samagri';
+import OurProducts from './pages/OurProducts';
 import Login from './common-components/Login';
 import Signup from './common-components/Signup';
 
@@ -42,9 +41,8 @@ function App() {
         <Box component="main" sx={{ flexGrow: 1, py: 3 }}>
           <Container>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/samagri" element={<Samagri />} />
+              <Route path="/" element={<Services />} />
+              <Route path="/our-products" element={<OurProducts />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>

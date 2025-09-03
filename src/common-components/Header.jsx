@@ -23,11 +23,8 @@ function Header({ isAuthenticated, anchorEl, open, handleMenu, handleClose, hand
             Puja Portal
           </Link>
         </Typography>
-        <Button color="inherit" component={Link} to="/services">
-          Services
-        </Button>
-        <Button color="inherit" component={Link} to="/samagri">
-          Samagri
+        <Button color="inherit" component={Link} to="/our-products">
+          Our Products
         </Button>
         {isAuthenticated ? (
           <div>
