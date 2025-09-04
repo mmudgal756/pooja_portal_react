@@ -29,7 +29,7 @@ function ProductManagement() {
   }, []);
 
   const fetchProducts = async () => {
-    const { data } = await axios.get('/api/products');
+    const { data } = await axios.get('http://localhost:3000/api/products/category/Products');
     setProducts(data);
   };
 
@@ -45,16 +45,16 @@ function ProductManagement() {
 
   const handleSave = async (item) => {
     if (item._id) {
-      await axios.put(`/api/products/${item._id}`, item);
+      await axios.put(`http://localhost:3000/api/products/${item._id}`, item);
     } else {
-      await axios.post('/api/products', item);
+      await axios.post('http://localhost:3000/api/products', item);
     }
     fetchProducts();
     handleClose();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/api/products/${id}`);
+    await axios.delete(`http://localhost:3000/api/products/${id}`);
     fetchProducts();
   };
 

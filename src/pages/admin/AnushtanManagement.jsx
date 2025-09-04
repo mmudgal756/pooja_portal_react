@@ -27,7 +27,7 @@ function AnushtanManagement() {
   }, []);
 
   const fetchAnushtans = async () => {
-    const { data } = await axios.get('/api/anushtans');
+    const { data } = await axios.get('http://localhost:3000/api/products/category/Anuthans');
     setAnushtans(data);
   };
 
@@ -43,16 +43,16 @@ function AnushtanManagement() {
 
   const handleSave = async (item) => {
     if (item._id) {
-      await axios.put(`/api/anushtans/${item._id}`, item);
+      await axios.put(`http://localhost:3000/api/products/${item._id}`, item);
     } else {
-      await axios.post('/api/anushtans', item);
+      await axios.post('http://localhost:3000/api/products', { ...item, category: 'Anuthans' });
     }
     fetchAnushtans();
     handleClose();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/api/anushtans/${id}`);
+    await axios.delete(`http://localhost:3000/api/products/${id}`);
     fetchAnushtans();
   };
 
