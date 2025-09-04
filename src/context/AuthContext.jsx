@@ -1,7 +1,12 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import Cookies from 'js-cookie';
+import { getUserById } from '../services/UserService';
 
 export const AuthContext = createContext();
+
+const API_URL = 'http://localhost:3000';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -9,16 +14,16 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkUser = async () => {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('accessToken');
       if (token) {
         try {
-          const res = await axios.get('/api/users/profile', {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          setUser(res.data);
+          const decodedToken = jwtDecode(token);
+          const userId = decodedToken.sub; // Assuming 'sub' claim holds the user ID
+          const userData = await getUserById(userId);
+          setUser(userData);
         } catch (error) {
           console.error('Failed to fetch user profile', error);
-          localStorage.removeItem('token');
+          Cookies.remove('accessToken');
         }
       }
       setLoading(false);
@@ -28,16 +33,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await axios.post('/api/users/login', { email, password });
-    localStorage.setItem('token', res.data.token);
-    const profileRes = await axios.get('/api/users/profile', {
-      headers: { Authorization: `Bearer ${res.data.token}` },
-    });
-    setUser(profileRes.data);
+    const res = await axios.post(`${API_URL}/login`, { email, password });
+    const { accessToken } = res.data;
+    Cookies.set('accessToken', accessToken);
+    const decodedToken = jwtDecode(accessToken);
+    const userId = decodedToken.sub; // Assuming 'sub' claim holds the user ID
+    const userData = await getUserById(userId);
+    setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    Cookies.remove('accessToken');
     setUser(null);
   };
 
