@@ -55,9 +55,10 @@ function OurProducts() {
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
                 <CardMedia
                   component="img"
-                  height="140"
-                  image={product.name !== "Havan Samagri Kits" ? havanSamagriKit : (product.imageUrl || 'https://via.placeholder.com/150')}
+                  height="240"
+                  image={product.name === "Havan Samagri Kit" ? havanSamagriKit : (product.imageUrl || 'https://via.placeholder.com/240')}
                   alt={product.name}
+                  sx={{ objectFit: 'cover' }}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h5" component="div">
