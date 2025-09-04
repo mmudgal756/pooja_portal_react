@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid, Card, CardContent, CardMedia, Button, CircularProgress, Alert } from '@mui/material';
 import { AddShoppingCart } from '@mui/icons-material';
-import { getProducts } from '../services/ProductsService';
+import axios from 'axios';
 
 function OurProducts({ onAddToCart }) {
   const [products, setProducts] = useState([]);
@@ -11,7 +11,7 @@ function OurProducts({ onAddToCart }) {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await getProducts();
+        const response = await axios.get('/api/products');
         setProducts(response.data);
       } catch (err) {
         setError('There was an error fetching the products. Please try again later.');
