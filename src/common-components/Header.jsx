@@ -13,7 +13,7 @@ import {
   Avatar,
   Divider,
 } from '@mui/material';
-import { Storefront, ShoppingCart } from '@mui/icons-material';
+import { Storefront, ShoppingCart, AdminPanelSettings } from '@mui/icons-material';
 import Logo from '../assets/images/logo.svg';
 import { AuthContext } from '../context/AuthContext';
 
@@ -52,6 +52,11 @@ function Header({ cartItemCount, handleCartOpen }) {
         <Button color="inherit" component={Link} to="/our-products" startIcon={<Storefront />}>
           Our Products
         </Button>
+        {user && user.role === 'Admin' && (
+          <Button color="inherit" component={Link} to="/admin" startIcon={<AdminPanelSettings />}>
+            Admin
+          </Button>
+        )}
         <IconButton
           size="large"
           aria-label={`show ${cartItemCount} new items in cart`}

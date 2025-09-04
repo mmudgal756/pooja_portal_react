@@ -2,7 +2,7 @@
 
 ## Overview
 
-Puja Portal is a web application that provides a one-stop solution for all pooja needs. Users can browse and book various pooja services, as well as purchase pooja samagri (items) with an integrated shopping cart.
+Puja Portal is a web application that provides a one-stop solution for all pooja needs. Users can browse and book various pooja services, as well as purchase pooja samagri (items) with an integrated shopping cart. The application also includes an admin panel for managing products and Anushtan.
 
 ## Design and Features
 
@@ -18,6 +18,7 @@ Puja Portal is a web application that provides a one-stop solution for all pooja
 *   **Puja Services:** The Puja Services page (formerly Services) displays a list of available pooja services with images and descriptions.
 *   **Our Products (Samagri):** The Our Products page showcases a variety of pooja items that users can purchase.
 *   **Login & Signup:** Basic login and signup pages are included for user authentication.
+*   **Admin:** A dedicated admin panel for managing the application's content.
 
 ### E-commerce
 
@@ -25,6 +26,13 @@ Puja Portal is a web application that provides a one-stop solution for all pooja
 *   **Shopping Cart:** A shopping cart drawer displays the items added to the cart, the total price, and allows for item removal.
 *   **Quantity Management:** Users can increase or decrease the quantity of each item directly within the shopping cart. If an item's quantity is reduced to zero, it is automatically removed from the cart.
 *   **Checkout:** A checkout button is available in the shopping cart, leading to a future checkout process.
+
+### Admin Panel
+
+*   **Role-Based Access:** The admin panel is only accessible to users with the "Admin" role. The link to the admin panel is conditionally rendered in the header based on the user's role.
+*   **Tabbed Interface:** The admin panel uses a tabbed interface to switch between managing products and Anushtan.
+*   **CRUD Operations:** The admin panel provides full CRUD (Create, Read, Update, Delete) functionality for both products and Anushtan.
+*   **Reusable Components:** The admin panel is built with reusable components, including a generic table (`AdminTable`) and a generic dialog for creating and editing items (`AdminDialog`).
 
 ### Backend Integration
 
@@ -42,4 +50,4 @@ Puja Portal is a web application that provides a one-stop solution for all pooja
 
 ## Current Request Plan
 
-There are no pending requests.
+This plan has been completed.

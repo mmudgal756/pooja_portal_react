@@ -8,6 +8,7 @@ import OurProducts from './pages/OurProducts';
 import Login from './common-components/Login';
 import Signup from './common-components/Signup';
 import Cart from './common-components/Cart';
+import Admin from './pages/admin/Admin';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -72,6 +73,7 @@ function App() {
               />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           </Container>
         </Box>
