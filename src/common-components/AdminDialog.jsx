@@ -76,6 +76,8 @@ function AdminDialog({ open, onClose, onSave, item, fields }) {
                 variant="outlined"
                 value={formData[field.id] || ''}
                 onChange={handleChange}
+                multiline={field.multiline}
+                rows={field.rows}
               />
             )
           })}

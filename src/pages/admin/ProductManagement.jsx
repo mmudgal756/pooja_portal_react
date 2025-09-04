@@ -14,9 +14,9 @@ const productColumns = [
 
 const productFields = [
   { id: 'name', label: 'Name' },
-  { id: 'description', label: 'Description' },
   { id: 'price', label: 'Price', type: 'number' },
   { id: 'category', label: 'Category', type: 'select' },
+  { id: 'description', label: 'Description', multiline: true, rows: 4 },
 ];
 
 function ProductManagement() {
