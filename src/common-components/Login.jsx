@@ -8,8 +8,8 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-
-const API_BASE_URL = 'http://localhost:3000';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -24,24 +24,32 @@ function Login() {
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+      const response = await axios.post('/api/users/login', {
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        throw new Error('Invalid credentials');
-      }
+      if (response.data.token) {
+        const { token } = response.data;
+        // Store the token in cookies
+        Cookies.set('token', token, { expires: 7 }); // Expires in 7 days
 
-      const data = await response.json();
-      // TODO: Handle successful login, e.g., store token and redirect
-      console.log('Login successful:', data);
-      navigate('/');
+        // Store the token in session storage
+        sessionStorage.setItem('token', token);
+
+        console.log('Login successful:', response.data);
+        navigate('/');
+      } else {
+        throw new Error('Login failed: No token received.');
+      }
     } catch (error) {
-      setError(error.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else if (error.message) {
+        setError(error.message);
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
