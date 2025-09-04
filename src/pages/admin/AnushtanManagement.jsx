@@ -9,27 +9,40 @@ const anushtanColumns = [
   { id: 'name', label: 'Name' },
   { id: 'description', label: 'Description' },
   { id: 'price', label: 'Price' },
+  { id: 'category', label: 'Category' },
 ];
 
 const anushtanFields = [
   { id: 'name', label: 'Name' },
   { id: 'description', label: 'Description' },
   { id: 'price', label: 'Price', type: 'number' },
+  { id: 'category', label: 'Category', type: 'select' },
   { id: 'imageUrl', label: 'Image URL' },
 ];
 
 function AnushtanManagement() {
   const [anushtans, setAnushtans] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
 
   useEffect(() => {
     fetchAnushtans();
+    fetchCategories();
   }, []);
 
   const fetchAnushtans = async () => {
     const { data } = await axios.get('/api/products/category/Anuthans');
     setAnushtans(data);
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const { data } = await axios.get('/api/categories');
+      setCategories(data);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
   };
 
   const handleOpen = (item = null) => {
@@ -46,7 +59,7 @@ function AnushtanManagement() {
     if (item._id) {
       await axios.put(`/api/products/${item._id}`, item);
     } else {
-      await axios.post('/api/products', { ...item, category: 'Anuthans' });
+      await axios.post('/api/products', item);
     }
     fetchAnushtans();
     handleClose();
@@ -57,30 +70,34 @@ function AnushtanManagement() {
     fetchAnushtans();
   };
 
+  const fieldsWithCategories = anushtanFields.map(field =>
+    field.id === 'category' ? { ...field, options: categories.map(c => c.name) } : field
+  );
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h5">Anushtan Management</Typography>
-        <Button 
-          variant="contained" 
-          startIcon={<AddIcon />} 
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
           onClick={() => handleOpen()}
         >
           Create Anushtan
         </Button>
       </Box>
-      <AdminTable 
-        data={anushtans} 
-        columns={anushtanColumns} 
-        onEdit={handleOpen} 
-        onDelete={handleDelete} 
+      <AdminTable
+        data={anushtans}
+        columns={anushtanColumns}
+        onEdit={handleOpen}
+        onDelete={handleDelete}
       />
-      <AdminDialog 
-        open={open} 
-        onClose={handleClose} 
-        onSave={handleSave} 
-        item={currentItem} 
-        fields={anushtanFields}
+      <AdminDialog
+        open={open}
+        onClose={handleClose}
+        onSave={handleSave}
+        item={currentItem}
+        fields={fieldsWithCategories}
       />
     </Box>
   );

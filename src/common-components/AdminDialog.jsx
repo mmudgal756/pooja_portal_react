@@ -8,6 +8,7 @@ import {
   Button,
   Box,
   Divider,
+  MenuItem
 } from '@mui/material';
 
 function AdminDialog({ open, onClose, onSave, item, fields }) {
@@ -42,19 +43,42 @@ function AdminDialog({ open, onClose, onSave, item, fields }) {
       <Divider />
       <DialogContent sx={{ p: 3 }}>
         <Box component="form" noValidate autoComplete="off">
-          {fields.map((field) => (
-            <TextField
-              key={field.id}
-              margin="normal"
-              name={field.id}
-              label={field.label}
-              type={field.type || 'text'}
-              fullWidth
-              variant="outlined"
-              value={formData[field.id] || ''}
-              onChange={handleChange}
-            />
-          ))}
+          {fields.map((field) => {
+            if (field.type === 'select') {
+              return (
+                <TextField
+                  key={field.id}
+                  select
+                  margin="normal"
+                  name={field.id}
+                  label={field.label}
+                  fullWidth
+                  variant="outlined"
+                  value={formData[field.id] || ''}
+                  onChange={handleChange}
+                >
+                  {field.options && field.options.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )
+            }
+            return (
+              <TextField
+                key={field.id}
+                margin="normal"
+                name={field.id}
+                label={field.label}
+                type={field.type || 'text'}
+                fullWidth
+                variant="outlined"
+                value={formData[field.id] || ''}
+                onChange={handleChange}
+              />
+            )
+          })}
         </Box>
       </DialogContent>
       <Divider />

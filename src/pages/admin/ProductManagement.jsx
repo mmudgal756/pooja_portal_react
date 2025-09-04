@@ -16,22 +16,33 @@ const productFields = [
   { id: 'name', label: 'Name' },
   { id: 'description', label: 'Description' },
   { id: 'price', label: 'Price', type: 'number' },
-  { id: 'category', label: 'Category' },
+  { id: 'category', label: 'Category', type: 'select' },
   { id: 'imageUrl', label: 'Image URL' },
 ];
 
 function ProductManagement() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
     const { data } = await axios.get('/api/products/category/Products');
     setProducts(data);
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const { data } = await axios.get('/api/categories');
+      setCategories(data);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
   };
 
   const handleOpen = (item = null) => {
@@ -59,30 +70,34 @@ function ProductManagement() {
     fetchProducts();
   };
 
+  const fieldsWithCategories = productFields.map(field =>
+    field.id === 'category' ? { ...field, options: categories.map(c => c.name) } : field
+  );
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h5">Product Management</Typography>
-        <Button 
-          variant="contained" 
-          startIcon={<AddIcon />} 
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
           onClick={() => handleOpen()}
         >
           Create Product
         </Button>
       </Box>
-      <AdminTable 
-        data={products} 
-        columns={productColumns} 
-        onEdit={handleOpen} 
-        onDelete={handleDelete} 
+      <AdminTable
+        data={products}
+        columns={productColumns}
+        onEdit={handleOpen}
+        onDelete={handleDelete}
       />
-      <AdminDialog 
-        open={open} 
-        onClose={handleClose} 
-        onSave={handleSave} 
-        item={currentItem} 
-        fields={productFields}
+      <AdminDialog
+        open={open}
+        onClose={handleClose}
+        onSave={handleSave}
+        item={currentItem}
+        fields={fieldsWithCategories}
       />
     </Box>
   );
