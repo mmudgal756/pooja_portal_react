@@ -11,6 +11,7 @@ import {
   Button,
   Badge,
   Avatar,
+  Divider,
 } from '@mui/material';
 import { Storefront, ShoppingCart } from '@mui/icons-material';
 import Logo from '../assets/images/logo.svg';
@@ -88,7 +89,9 @@ function Header({ cartItemCount, handleCartOpen }) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem disabled sx={{ fontWeight: 'bold' }}>{user.name}</MenuItem>
+              <MenuItem disabled>{user.email}</MenuItem>
+              <Divider />
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>
