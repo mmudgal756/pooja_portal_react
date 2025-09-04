@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid, Card, CardContent, CardMedia, Button, CircularProgress, Alert, Snackbar } from '@mui/material';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import havanSamagriKit from '../assets/images/havanKit.png';
 
 function OurProducts() {
   const [products, setProducts] = useState([]);
@@ -55,7 +56,7 @@ function OurProducts() {
                 <CardMedia
                   component="img"
                   height="140"
-                  image={product.imageUrl || 'https://via.placeholder.com/150'}
+                  image={product.name !== "Havan Samagri Kits" ? havanSamagriKit : (product.imageUrl || 'https://via.placeholder.com/150')}
                   alt={product.name}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
