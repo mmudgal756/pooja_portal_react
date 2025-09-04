@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -8,8 +8,8 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-
-const API_BASE_URL = 'http://localhost:3000';
+import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 function Signup() {
   const [name, setName] = useState('');
@@ -18,6 +18,7 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,24 +26,24 @@ function Signup() {
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
+      await axios.post('/api/users/register', {
+        name,
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to create account');
-      }
-
-      const data = await response.json();
-      // TODO: Handle successful signup, e.g., store token and redirect
-      console.log('Signup successful:', data);
+      // Automatically log in the user after successful registration
+      await login(email, password);
+      
       navigate('/');
     } catch (error) {
-      setError(error.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else if (error.message) {
+        setError(error.message);
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
