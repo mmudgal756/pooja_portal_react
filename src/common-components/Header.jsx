@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -10,11 +10,35 @@ import {
   MenuItem,
   Button,
   Badge,
+  Avatar,
 } from '@mui/material';
-import { AccountCircle, Storefront, ShoppingCart } from '@mui/icons-material';
+import { Storefront, ShoppingCart } from '@mui/icons-material';
 import Logo from '../assets/images/logo.svg';
+import { AuthContext } from '../context/AuthContext';
 
-function Header({ isAuthenticated, anchorEl, open, handleMenu, handleClose, handleLogout, cartItemCount, handleCartOpen }) {
+function Header({ cartItemCount, handleCartOpen }) {
+  const { user, logout, loading } = useContext(AuthContext);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    handleClose();
+    navigate('/');
+  };
+
+  if (loading) {
+    return null; // Or a loading spinner
+  }
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -37,7 +61,7 @@ function Header({ isAuthenticated, anchorEl, open, handleMenu, handleClose, hand
             <ShoppingCart />
           </Badge>
         </IconButton>
-        {isAuthenticated ? (
+        {user ? (
           <div>
             <IconButton
               size="large"
@@ -47,7 +71,7 @@ function Header({ isAuthenticated, anchorEl, open, handleMenu, handleClose, hand
               onClick={handleMenu}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar alt={user.name} src={user.profileImage || 'path/to/default/avatar.png'} />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -61,7 +85,7 @@ function Header({ isAuthenticated, anchorEl, open, handleMenu, handleClose, hand
                 vertical: 'top',
                 horizontal: 'right',
               }}
-              open={open}
+              open={Boolean(anchorEl)}
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>Profile</MenuItem>

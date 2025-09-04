@@ -10,25 +10,8 @@ import Signup from './common-components/Signup';
 import Cart from './common-components/Cart';
 
 function App() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const open = Boolean(anchorEl);
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    // TODO: Implement actual logout logic (e.g., clear token)
-    setIsAuthenticated(false);
-    handleClose();
-  };
 
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
@@ -69,12 +52,6 @@ function App() {
     <Router>
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header 
-          isAuthenticated={isAuthenticated}
-          anchorEl={anchorEl}
-          open={open}
-          handleMenu={handleMenu}
-          handleClose={handleClose}
-          handleLogout={handleLogout}
           cartItemCount={cartItemCount}
           handleCartOpen={handleCartOpen}
         />

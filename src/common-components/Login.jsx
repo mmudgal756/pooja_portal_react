@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -8,8 +8,7 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-import Cookies from 'js-cookie';
-import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -17,6 +16,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,26 +24,8 @@ function Login() {
     setError(null);
 
     try {
-      const response = await axios.post('/api/users/login', {
-        email,
-        password,
-      });
-
-      if (response.data.accessToken && response.data.refreshToken) {
-        const { accessToken, refreshToken } = response.data;
-        // Store the tokens in cookies
-        Cookies.set('accessToken', accessToken, { expires: 7 }); // Expires in 7 days
-        Cookies.set('refreshToken', refreshToken, { expires: 30 }); // Expires in 30 days
-
-        // Store the tokens in session storage
-        sessionStorage.setItem('accessToken', accessToken);
-        sessionStorage.setItem('refreshToken', refreshToken);
-
-        console.log('Login successful:', response.data);
-        navigate('/');
-      } else {
-        throw new Error('Login failed: No tokens received.');
-      }
+      await login(email, password);
+      navigate('/');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
         setError(error.response.data.message);
