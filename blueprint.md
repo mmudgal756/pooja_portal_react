@@ -38,7 +38,7 @@ Puja Portal is a web application that provides a one-stop solution for all pooja
 
 *   **API Service:** The application fetches product data from a backend API. The admin panel uses specific API endpoints to fetch products by category:
     *   Products: `http://localhost:3000/api/products/category/Products`
-    *   Anushtan: `http://localhost:3000/api/products/category/Anuthans`
+    *   Anusthans: `http://localhost:3000/api/products/category/Anusthans`
 *   **Environment Variables:** The API base URL is stored in a `.env` file for easy configuration.
 *   **Product Service:** A dedicated `ProductsService.js` handles all API requests related to products, promoting a clean and organized codebase.
 *   **Error Handling:** The application includes error handling for API requests and displays a user-friendly message if an error occurs.

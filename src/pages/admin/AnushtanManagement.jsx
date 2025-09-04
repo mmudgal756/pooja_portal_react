@@ -31,7 +31,7 @@ function AnushtanManagement() {
   }, []);
 
   const fetchAnushtans = async () => {
-    const { data } = await axios.get('/api/products/category/Anuthans');
+    const { data } = await axios.get('/api/products/category/Anusthans');
     setAnushtans(data);
   };
 
