@@ -17,7 +17,6 @@ const anushtanFields = [
   { id: 'description', label: 'Description' },
   { id: 'price', label: 'Price', type: 'number' },
   { id: 'category', label: 'Category', type: 'select' },
-  { id: 'imageUrl', label: 'Image URL' },
 ];
 
 function AnushtanManagement() {
