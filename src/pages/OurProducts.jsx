@@ -51,7 +51,7 @@ function OurProducts() {
       {!loading && !error && (
         <Grid container spacing={4} justifyContent="center">
           {products.map((product) => (
-            <Grid item key={product.id} xs={12} sm={6} md={4}>
+            <Grid item key={product._id} xs={12} sm={6} md={4}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
                 <CardMedia
                   component="img"
