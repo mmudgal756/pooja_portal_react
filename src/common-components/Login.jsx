@@ -29,18 +29,20 @@ function Login() {
         password,
       });
 
-      if (response.data.token) {
-        const { token } = response.data;
-        // Store the token in cookies
-        Cookies.set('token', token, { expires: 7 }); // Expires in 7 days
+      if (response.data.accessToken && response.data.refreshToken) {
+        const { accessToken, refreshToken } = response.data;
+        // Store the tokens in cookies
+        Cookies.set('accessToken', accessToken, { expires: 7 }); // Expires in 7 days
+        Cookies.set('refreshToken', refreshToken, { expires: 30 }); // Expires in 30 days
 
-        // Store the token in session storage
-        sessionStorage.setItem('token', token);
+        // Store the tokens in session storage
+        sessionStorage.setItem('accessToken', accessToken);
+        sessionStorage.setItem('refreshToken', refreshToken);
 
         console.log('Login successful:', response.data);
         navigate('/');
       } else {
-        throw new Error('Login failed: No token received.');
+        throw new Error('Login failed: No tokens received.');
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
