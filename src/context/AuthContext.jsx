@@ -1,6 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -10,60 +8,37 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = Cookies.get('accessToken');
+    const checkUser = async () => {
+      const token = localStorage.getItem('token');
       if (token) {
         try {
-          const decodedToken = jwtDecode(token);
-          const userId = decodedToken.id;
-          const response = await axios.get(`/api/users/${userId}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+          const res = await axios.get('/api/users/profile', {
+            headers: { Authorization: `Bearer ${token}` },
           });
-          setUser(response.data);
+          setUser(res.data);
         } catch (error) {
-          console.error('Failed to fetch user:', error);
-          // Handle token expiration or invalid token
-          Cookies.remove('accessToken');
-          Cookies.remove('refreshToken');
-          sessionStorage.removeItem('accessToken');
-          sessionStorage.removeItem('refreshToken');
+          console.error('Failed to fetch user profile', error);
+          localStorage.removeItem('token');
         }
       }
       setLoading(false);
     };
 
-    fetchUser();
+    checkUser();
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post('/api/users/login', {
-      email,
-      password,
+    const res = await axios.post('/api/users/login', { email, password });
+    localStorage.setItem('token', res.data.token);
+    const profileRes = await axios.get('/api/users/profile', {
+      headers: { Authorization: `Bearer ${res.data.token}` },
     });
-    const { accessToken, refreshToken } = response.data;
-    Cookies.set('accessToken', accessToken, { expires: 7 });
-    Cookies.set('refreshToken', refreshToken, { expires: 30 });
-    sessionStorage.setItem('accessToken', accessToken);
-    sessionStorage.setItem('refreshToken', refreshToken);
-
-    const decodedToken = jwtDecode(accessToken);
-    const userId = decodedToken.id;
-    const userResponse = await axios.get(`/api/users/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    setUser(userResponse.data);
+    setUser(profileRes.data);
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
     setUser(null);
-    Cookies.remove('accessToken');
-    Cookies.remove('refreshToken');
-    sessionStorage.removeItem('accessToken');
-    sessionStorage.removeItem('refreshToken');
   };
 
   return (

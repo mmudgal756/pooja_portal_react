@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminTable from '../../common-components/AdminTable';
 import AdminDialog from '../../common-components/AdminDialog';
-import { Button } from '@mui/material';
+import { Button, Box, Typography } from '@mui/material';
+import { Add as AddIcon } from '@mui/icons-material';
 
 const anushtanColumns = [
   { id: 'name', label: 'Name' },
@@ -57,8 +58,17 @@ function AnushtanManagement() {
   };
 
   return (
-    <div>
-      <Button variant="contained" onClick={() => handleOpen()}>Create Anushtan</Button>
+    <Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        <Typography variant="h5">Anushtan Management</Typography>
+        <Button 
+          variant="contained" 
+          startIcon={<AddIcon />} 
+          onClick={() => handleOpen()}
+        >
+          Create Anushtan
+        </Button>
+      </Box>
       <AdminTable 
         data={anushtans} 
         columns={anushtanColumns} 
@@ -72,7 +82,7 @@ function AnushtanManagement() {
         item={currentItem} 
         fields={anushtanFields}
       />
-    </div>
+    </Box>
   );
 }
 

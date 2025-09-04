@@ -12,15 +12,26 @@ import {
   Badge,
   Avatar,
   Divider,
+  ListItemIcon,
 } from '@mui/material';
-import { Storefront, ShoppingCart, AdminPanelSettings } from '@mui/icons-material';
+import {
+  Storefront,
+  ShoppingCart,
+  AdminPanelSettings,
+  Logout as LogoutIcon,
+  AccountCircle,
+} from '@mui/icons-material';
 import Logo from '../assets/images/logo.svg';
 import { AuthContext } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
-function Header({ cartItemCount, handleCartOpen }) {
+function Header({ handleCartOpen }) {
   const { user, logout, loading } = useContext(AuthContext);
+  const { cart } = useCart();
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+
+  const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,54 +47,58 @@ function Header({ cartItemCount, handleCartOpen }) {
     navigate('/');
   };
 
+  const handleAdminClick = () => {
+    navigate('/admin');
+    handleClose();
+  };
+
   if (loading) {
-    return null; // Or a loading spinner
+    return null; 
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" elevation={1}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
             <img src={Logo} alt="logo" style={{ width: 40, height: 40, marginRight: '10px' }} />
-            <span>Puja Portal</span>
+            <span style={{ fontWeight: 'bold' }}>Puja Portal</span>
           </Link>
         </Typography>
-        <Button color="inherit" component={Link} to="/our-products" startIcon={<Storefront />}>
-          Our Products
-        </Button>
-        {user && user.role === 'Admin' && (
-          <Button color="inherit" component={Link} to="/admin" startIcon={<AdminPanelSettings />}>
-            Admin
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Button component={Link} to="/our-products" startIcon={<Storefront />} sx={{ color: 'white' }}>
+            Products
           </Button>
-        )}
-        <IconButton
-          size="large"
-          aria-label={`show ${cartItemCount} new items in cart`}
-          color="inherit"
-          onClick={handleCartOpen}
-        >
-          <Badge badgeContent={cartItemCount} color="error">
-            <ShoppingCart />
-          </Badge>
-        </IconButton>
+          <IconButton
+            size="large"
+            aria-label={`show ${cartItemCount} new items in cart`}
+            color="inherit"
+            onClick={handleCartOpen}
+            sx={{ ml: 2, color: 'white' }}
+          >
+            <Badge badgeContent={cartItemCount} color="error">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
+        </Box>
         {user ? (
-          <div>
+          <Box sx={{ ml: 2 }}>
             <IconButton
               size="large"
+              edge="end"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
             >
-              <Avatar alt={user.name} src={user.profileImage || 'path/to/default/avatar.png'} />
+              <Avatar alt={user.name} src={user.profileImage || 'path/to/default/avatar.png'} sx={{ width: 32, height: 32 }} />
             </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: 'top',
+                vertical: 'bottom',
                 horizontal: 'right',
               }}
               keepMounted
@@ -94,15 +109,29 @@ function Header({ cartItemCount, handleCartOpen }) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem disabled sx={{ fontWeight: 'bold' }}>{user.name}</MenuItem>
-              <MenuItem disabled>{user.email}</MenuItem>
+              <MenuItem disabled>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>{user.name}</Typography>
+              </MenuItem>
               <Divider />
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              {user.role === 'Admin' && (
+                <MenuItem onClick={handleAdminClick}>
+                  <ListItemIcon>
+                    <AdminPanelSettings fontSize="small" />
+                  </ListItemIcon>
+                  Admin
+                </MenuItem>
+              )}
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon>
+                  <LogoutIcon fontSize="small" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
             </Menu>
-          </div>
+          </Box>
         ) : (
-          <Box>
-            <Button color="inherit" component={Link} to="/login">
+          <Box sx={{ ml: 2 }}>
+            <Button component={Link} to="/login" startIcon={<AccountCircle />} sx={{ color: 'white' }}>
               Login
             </Button>
           </Box>

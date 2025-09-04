@@ -6,6 +6,8 @@ import {
   DialogTitle,
   TextField,
   Button,
+  Box,
+  Divider,
 } from '@mui/material';
 
 function AdminDialog({ open, onClose, onSave, item, fields }) {
@@ -15,7 +17,6 @@ function AdminDialog({ open, onClose, onSave, item, fields }) {
     if (item) {
       setFormData(item);
     } else {
-      // Initialize form with empty values based on fields
       const emptyForm = fields.reduce((acc, field) => {
         acc[field.id] = '';
         return acc;
@@ -34,26 +35,36 @@ function AdminDialog({ open, onClose, onSave, item, fields }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{item ? 'Edit' : 'Create'}</DialogTitle>
-      <DialogContent>
-        {fields.map((field) => (
-          <TextField
-            key={field.id}
-            margin="dense"
-            name={field.id}
-            label={field.label}
-            type={field.type || 'text'}
-            fullWidth
-            variant="standard"
-            value={formData[field.id] || ''}
-            onChange={handleChange}
-          />
-        ))}
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+      <DialogTitle sx={{ fontWeight: 'bold', fontSize: '1.5rem' }}>
+        {item ? 'Edit Item' : 'Create New Item'}
+      </DialogTitle>
+      <Divider />
+      <DialogContent sx={{ p: 3 }}>
+        <Box component="form" noValidate autoComplete="off">
+          {fields.map((field) => (
+            <TextField
+              key={field.id}
+              margin="normal"
+              name={field.id}
+              label={field.label}
+              type={field.type || 'text'}
+              fullWidth
+              variant="outlined"
+              value={formData[field.id] || ''}
+              onChange={handleChange}
+            />
+          ))}
+        </Box>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSave}>Save</Button>
+      <Divider />
+      <DialogActions sx={{ p: 2 }}>
+        <Button onClick={onClose} variant="outlined" color="secondary">
+          Cancel
+        </Button>
+        <Button onClick={handleSave} variant="contained" color="primary">
+          Save
+        </Button>
       </DialogActions>
     </Dialog>
   );

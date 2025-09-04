@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminTable from '../../common-components/AdminTable';
 import AdminDialog from '../../common-components/AdminDialog';
-import { Button } from '@mui/material';
+import { Button, Box, Typography } from '@mui/material';
+import { Add as AddIcon } from '@mui/icons-material';
 
 const productColumns = [
   { id: 'name', label: 'Name' },
@@ -59,8 +60,17 @@ function ProductManagement() {
   };
 
   return (
-    <div>
-      <Button variant="contained" onClick={() => handleOpen()}>Create Product</Button>
+    <Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        <Typography variant="h5">Product Management</Typography>
+        <Button 
+          variant="contained" 
+          startIcon={<AddIcon />} 
+          onClick={() => handleOpen()}
+        >
+          Create Product
+        </Button>
+      </Box>
       <AdminTable 
         data={products} 
         columns={productColumns} 
@@ -74,7 +84,7 @@ function ProductManagement() {
         item={currentItem} 
         fields={productFields}
       />
-    </div>
+    </Box>
   );
 }
 
