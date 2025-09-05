@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -30,6 +30,7 @@ function Header({ handleCartOpen }) {
   const { cart } = useCart();
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -57,24 +58,33 @@ function Header({ handleCartOpen }) {
   }
 
   return (
-    <AppBar position="static" elevation={1}>
+    <AppBar position="fixed" color="inherit" elevation={0} sx={{ backgroundColor: 'white', borderBottom: '1px solid #e0e0e0' }}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
-            <img src={Logo} alt="logo" style={{ width: 40, height: 40, marginRight: '10px' }} />
+          <Link to="/" style={{ textDecoration: 'none', color: '#5c5cb0', display: 'flex', alignItems: 'center' }}>
+            <Box
+              sx={{
+                width: 40,
+                height: 40,
+                marginRight: '10px',
+                backgroundColor: '#5c5cb0',
+                mask: `url(${Logo}) no-repeat center / contain`,
+                WebkitMask: `url(${Logo}) no-repeat center / contain`,
+              }}
+            />
             <span style={{ fontWeight: 'bold' }}>Puja Portal</span>
           </Link>
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Button component={Link} to="/our-products" startIcon={<Storefront />} sx={{ color: 'white' }}>
-            Products
+          <Button component={Link} to="/our-products" startIcon={<Storefront />} sx={{ color: '#5c5cb0', textTransform: 'none' }}>
+            Our Products
           </Button>
           <IconButton
             size="large"
             aria-label={`show ${cartItemCount} new items in cart`}
             color="inherit"
             onClick={handleCartOpen}
-            sx={{ ml: 2, color: 'white' }}
+            sx={{ ml: 2, color: '#5c5cb0' }}
           >
             <Badge badgeContent={cartItemCount} color="error">
               <ShoppingCart />
@@ -107,8 +117,7 @@ function Header({ handleCartOpen }) {
                 horizontal: 'right',
               }}
               open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
+              onClose={handleClose}>
               <MenuItem disabled>
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>{user.name}</Typography>
               </MenuItem>
@@ -130,11 +139,13 @@ function Header({ handleCartOpen }) {
             </Menu>
           </Box>
         ) : (
-          <Box sx={{ ml: 2 }}>
-            <Button component={Link} to="/login" startIcon={<AccountCircle />} sx={{ color: 'white' }}>
-              Login
-            </Button>
-          </Box>
+          location.pathname !== '/login' && (
+            <Box sx={{ ml: 2 }}>
+              <Button component={Link} to="/login" startIcon={<AccountCircle />} sx={{ color: '#5c5cb0', textTransform: 'none' }}>
+                Login
+              </Button>
+            </Box>
+          )
         )}
       </Toolbar>
     </AppBar>

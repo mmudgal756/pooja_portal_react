@@ -9,8 +9,9 @@ function Footer() {
         py: 2,
         px: 2,
         marginTop: 'auto',
-        backgroundColor: 'primary.main',
-        color: 'white',
+        backgroundColor: '#f5f5f5',
+        color: '#5c5cb0',
+        borderTop: '1px solid #e0e0e0',
       }}
     >
       <Container maxWidth="lg">
