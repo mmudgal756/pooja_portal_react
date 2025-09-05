@@ -9,7 +9,7 @@ function Footer() {
         py: 2,
         px: 2,
         marginTop: 'auto',
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#ffffffcc',
         color: '#5c5cb0',
         borderTop: '1px solid #e0e0e0',
       }}

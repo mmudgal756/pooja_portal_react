@@ -58,7 +58,7 @@ function Header({ handleCartOpen }) {
   }
 
   return (
-    <AppBar position="fixed" color="inherit" elevation={0} sx={{ backgroundColor: 'white', borderBottom: '1px solid #e0e0e0' }}>
+    <AppBar position="fixed" color="inherit" elevation={0} sx={{ backgroundColor: '#ffffffcc', borderBottom: '1px solid #e0e0e0' }}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ textDecoration: 'none', color: '#5c5cb0', display: 'flex', alignItems: 'center' }}>

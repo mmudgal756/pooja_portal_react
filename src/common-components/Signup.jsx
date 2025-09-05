@@ -9,12 +9,11 @@ import {
   Alert,
   Paper,
   Grid,
-  Avatar,
-  CssBaseline,
 } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import Logo from '../assets/images/logo.svg';
+import GoogleIcon from '../assets/images/Google.svg';
 
 function Signup() {
   const [name, setName] = useState('');
@@ -54,104 +53,173 @@ function Signup() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
-      <CssBaseline />
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
+    <Box
+      sx={{
+        display: 'flex',
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        backgroundColor: '#f5f5f5',
+        pt: 12,
+      }}
+    >
+      <Paper
+        elevation={3}
         sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random?hinduism,temple)',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          padding: 3,
+          borderRadius: 2,
+          width: '100%',
+          maxWidth: 380,
+          textAlign: 'center',
         }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      >
         <Box
           sx={{
-            my: 8,
-            mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            width: 50,
+            height: 50,
+            backgroundColor: 'primary.main',
+            mask: `url(${Logo}) no-repeat center / contain`,
+            WebkitMask: `url(${Logo}) no-repeat center / contain`,
+            margin: '0 auto',
+            marginBottom: '0.5rem',
           }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
+        />
+        <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold', mb: 0.5, color: '#5c5cb0', fontSize: '1.25rem' }}>
+          Sign Up
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 2, fontSize: '0.75rem', color: '#64748b' }}>
+          Enter your details below to create your account
+        </Typography>
+        <Box component="form" noValidate onSubmit={handleSubmit}>
+          <Typography variant="body2" component="label" htmlFor="name" sx={{ textAlign: 'left', display: 'block', mb: 0.5, fontSize: '0.75rem', color: '#5c5cb0' }}>
+            Name
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="name"
-                  name="name"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Name"
-                  autoFocus
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Grid>
-            </Grid>
-            {error && (
-              <Alert severity="error" sx={{ mt: 2 }}>
-                {error}
-              </Alert>
-            )}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={loading}
-            >
-              {loading ? <CircularProgress size={24} /> : 'Sign Up'}
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link to="/login">
-                  <Typography variant="body2">{"Already have an account? Sign in"}</Typography>
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+          <TextField
+            required
+            fullWidth
+            id="name"
+            name="name"
+            autoComplete="name"
+            autoFocus
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            sx={{ 
+              mb: 1.5,  
+              '& .MuiInputBase-root': { 
+                height: '40px'
+              }, 
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#e2e8f0',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#e2e8f0',
+                },
+              },
+            }}
+            placeholder="John Doe"
+          />
+          <Typography variant="body2" component="label" htmlFor="email" sx={{ textAlign: 'left', display: 'block', mb: 0.5, fontSize: '0.75rem', color: '#5c5cb0' }}>
+            Email
+          </Typography>
+          <TextField
+            required
+            fullWidth
+            id="email"
+            name="email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            sx={{ 
+              mb: 1.5,  
+              '& .MuiInputBase-root': { 
+                height: '40px'
+              }, 
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#e2e8f0',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#e2e8f0',
+                },
+              },
+            }}
+            placeholder="m@example.com"
+          />
+          <Typography variant="body2" component="label" htmlFor="password" sx={{ textAlign: 'left', display: 'block', mb: 0.5, fontSize: '0.75rem', color: '#5c5cb0' }}>
+            Password
+          </Typography>
+          <TextField
+            required
+            fullWidth
+            name="password"
+            type="password"
+            id="password"
+            autoComplete="new-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{ 
+              mb: 1,  
+              '& .MuiInputBase-root': { 
+                height: '40px' 
+              }, 
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#e2e8f0',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#e2e8f0',
+                },
+              },
+            }}
+          />
+          {error && (
+            <Alert severity="error" sx={{ mt: 1.5 }}>
+              {error}
+            </Alert>
+          )}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ 
+              mt: 1.5, 
+              mb: 1.5, 
+              py: 1, 
+              bgcolor: '#5c5cb0',
+              textTransform: 'none',
+            }}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress size={24} /> : 'Sign Up'}
+          </Button>
+          <Button
+            fullWidth
+            variant="outlined"
+            startIcon={<img src={GoogleIcon} alt="Google sign-in" />}
+            sx={{ 
+              mb: 1.5, 
+              py: 1,
+              borderColor: '#e2e8f0',
+              color: '#64748b',
+              justifyContent: 'center', 
+              textTransform: 'none',
+            }}
+            onClick={() => {
+              // TODO: Implement Google signup
+            }}
+          >
+            Sign Up with Google
+          </Button>
+          <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
+            Already have an account?{' '}
+            <Link to="/login" style={{ textDecoration: 'none', color: '#5c5cb0', fontWeight: 'bold' }}>
+              Sign in
+            </Link>
+          </Typography>
         </Box>
-      </Grid>
-    </Grid>
+      </Paper>
+    </Box>
   );
 }
 
