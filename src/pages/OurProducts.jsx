@@ -39,10 +39,10 @@ function OurProducts() {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 12, mb: 4, textAlign: 'center' }}>
-      <Typography variant="h4" component="h1" gutterBottom>
+      <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#5c5cb0' }}>
         Our Products
       </Typography>
-      <Typography variant="body1" sx={{ mb: 6 }}>
+      <Typography variant="body1" sx={{ mb: 6, color: '#64748b' }}>
         Discover a wide range of authentic and high-quality products for your spiritual needs.
       </Typography>
 
