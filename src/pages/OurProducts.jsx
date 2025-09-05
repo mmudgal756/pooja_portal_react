@@ -52,7 +52,7 @@ function OurProducts() {
       {!loading && !error && (
         <Grid container spacing={4} justifyContent="center">
           {products.map((product) => (
-            <Grid item key={product._id} xs={12} sm={6} md={4}>
+            <Grid item key={product._id} xs={12} sm={4} md={4}>
               <Card sx={{ 
                 height: '100%', 
                 display: 'flex', 
@@ -74,10 +74,10 @@ function OurProducts() {
                 </Typography>
                 <CardMedia
                   component="img"
-                  height="200"
+                  height="250"
                   image={product.name === "Havan Samagri Kit" ? havanSamagriKit : (product.imageUrl || 'https://via.placeholder.com/600x400')}
                   alt={product.name}
-                  sx={{ objectFit: 'contain', borderRadius: 1.5, mb: 2, height: '200px' }}
+                  sx={{ borderRadius: 1.5, mb: 2, height: '250px' }}
                 />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
                   <Typography variant="h6" component="p" sx={{ fontWeight: 'bold', color: '#5c5cb0', fontSize: '1rem' }}>
