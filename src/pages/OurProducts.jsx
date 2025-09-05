@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid, Card, CardContent, CardMedia, Button, CircularProgress, Alert, Snackbar } from '@mui/material';
+import { AddShoppingCart } from '@mui/icons-material';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import havanSamagriKit from '../assets/images/havanKit.png';
@@ -37,7 +38,7 @@ function OurProducts() {
   };
 
   return (
-    <Box sx={{ mt: 4, textAlign: 'center' }}>
+    <Box sx={{ mt: 4, textAlign: 'center', px: 2 }}>
       <Typography variant="h4" component="h1" gutterBottom>
         Our Products
       </Typography>
@@ -52,31 +53,38 @@ function OurProducts() {
         <Grid container spacing={4} justifyContent="center">
           {products.map((product) => (
             <Grid item key={product._id} xs={12} sm={6} md={4}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+              <Card sx={{ 
+                height: '100%', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                textAlign: 'left',
+                borderRadius: 2,
+                boxShadow: '0px 4px 12px rgba(0,0,0,0.05)',
+                p: 2
+              }}>
+                <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: '#5c5cb0', fontSize: '1.1rem' }}>
+                  {product.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: '0.8rem' }}>
+                  {product.description}
+                </Typography>
                 <CardMedia
                   component="img"
-                  height="240"
-                  image={product.name === "Havan Samagri Kit" ? havanSamagriKit : (product.imageUrl || 'https://via.placeholder.com/240')}
+                  height="200"
+                  image={product.name === "Havan Samagri Kit" ? havanSamagriKit : (product.imageUrl || 'https://via.placeholder.com/600x400')}
                   alt={product.name}
-                  sx={{ objectFit: 'cover' }}
+                  sx={{ objectFit: 'cover', borderRadius: 1.5, mb: 2 }}
                 />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {product.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {product.description}
-                  </Typography>
-                  <Typography variant="h6" component="p" sx={{ mt: 2, fontWeight: 'bold', color: 'primary.main' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
+                  <Typography variant="h6" component="p" sx={{ fontWeight: 'bold', color: '#5c5cb0', fontSize: '1rem' }}>
                     ₹{product.price}
                   </Typography>
-                </CardContent>
-                <Box sx={{ p: 2 }}>
                   <Button 
-                    variant="contained" 
+                    variant="outlined" 
                     color="primary" 
-                    fullWidth
+                    startIcon={<AddShoppingCart />}
                     onClick={() => handleAddToCart(product)}
+                    sx={{ textTransform: 'none', fontSize: '0.8rem', borderColor: '#e2e8f0', color: '#5c5cb0' }}
                   >
                     Add to Cart
                   </Button>
@@ -92,9 +100,10 @@ function OurProducts() {
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
         message="Item added to cart"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
     </Box>
   );
 }
 
-export default OurProducts;
+export default OurProducts; 
