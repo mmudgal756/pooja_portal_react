@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Box, Grid, Card, CardContent, CardMedia, Button, CircularProgress, Alert, Snackbar } from '@mui/material';
+import { Typography, Box, Grid, Card, CardMedia, Button, CircularProgress, Alert, Snackbar, Container } from '@mui/material';
 import { AddShoppingCart } from '@mui/icons-material';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
@@ -38,11 +38,11 @@ function OurProducts() {
   };
 
   return (
-    <Box sx={{ mt: 4, textAlign: 'center', px: 2 }}>
+    <Container maxWidth="lg" sx={{ mt: 12, mb: 4, textAlign: 'center' }}>
       <Typography variant="h4" component="h1" gutterBottom>
         Our Products
       </Typography>
-      <Typography variant="body1" sx={{ mb: 4 }}>
+      <Typography variant="body1" sx={{ mb: 6 }}>
         Discover a wide range of authentic and high-quality products for your spiritual needs.
       </Typography>
 
@@ -60,12 +60,16 @@ function OurProducts() {
                 textAlign: 'left',
                 borderRadius: 2,
                 boxShadow: '0px 4px 12px rgba(0,0,0,0.05)',
-                p: 2
+                p: 2,
+                transition: 'transform 0.2s',
+                '&:hover': {
+                  transform: 'scale(1.02)'
+                }
               }}>
                 <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: '#5c5cb0', fontSize: '1.1rem' }}>
                   {product.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: '0.8rem' }}>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: '0.8rem', minHeight: '40px' }}>
                   {product.description}
                 </Typography>
                 <CardMedia
@@ -73,7 +77,7 @@ function OurProducts() {
                   height="200"
                   image={product.name === "Havan Samagri Kit" ? havanSamagriKit : (product.imageUrl || 'https://via.placeholder.com/600x400')}
                   alt={product.name}
-                  sx={{ objectFit: 'cover', borderRadius: 1.5, mb: 2 }}
+                  sx={{ objectFit: 'contain', borderRadius: 1.5, mb: 2, height: '200px' }}
                 />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
                   <Typography variant="h6" component="p" sx={{ fontWeight: 'bold', color: '#5c5cb0', fontSize: '1rem' }}>
@@ -102,8 +106,8 @@ function OurProducts() {
         message="Item added to cart"
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
-    </Box>
+    </Container>
   );
 }
 
-export default OurProducts; 
+export default OurProducts;
