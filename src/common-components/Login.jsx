@@ -9,12 +9,10 @@ import {
   Alert,
   Paper,
   Grid,
-  Avatar,
-  CssBaseline,
-}
-from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+} from '@mui/material';
 import { AuthContext } from '../context/AuthContext';
+import Logo from '../assets/images/logo.svg';
+import GoogleIcon from '../assets/images/Google.svg';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -46,88 +44,150 @@ function Login() {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
-      <CssBaseline />
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: 'calc(100vh - 64px)', 
+        backgroundColor: '#f5f5f5',
+      }}
+    >
+      <Paper
+        elevation={3}
         sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random?hinduism)',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          padding: 4,
+          borderRadius: 2,
+          width: '100%',
+          maxWidth: 400,
+          textAlign: 'center',
         }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      >
         <Box
           sx={{
-            my: 8,
-            mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            width: 60,
+            height: 60,
+            backgroundColor: 'primary.main',
+            mask: `url(${Logo}) no-repeat center / contain`,
+            WebkitMask: `url(${Logo}) no-repeat center / contain`,
+            margin: '0 auto',
+            marginBottom: '1rem',
           }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+        />
+        <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold', mb: 1, color: '#5c5cb0', fontSize: '1.5rem' }}>
+          Login
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 3, fontSize: '0.875rem', color: '#64748b' }}>
+          Enter your email below to login to your account
+        </Typography>
+        <Box component="form" noValidate onSubmit={handleSubmit}>
+          <Typography variant="body2" component="label" htmlFor="email" sx={{ textAlign: 'left', display: 'block', mb: 1, fontSize: '0.875rem', color: '#5c5cb0' }}>
+            Email
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {error && (
-              <Alert severity="error" sx={{ mt: 2 }}>
-                {error}
-              </Alert>
-            )}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={loading}
-            >
-              {loading ? <CircularProgress size={24} /> : 'Sign In'}
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link to="/signup">
-                  <Typography variant="body2">{"Don't have an account? Sign Up"}</Typography>
-                </Link>
-              </Grid>
+          <TextField
+            required
+            fullWidth
+            id="email"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            sx={{ 
+              mb: 2,  
+              '& .MuiInputBase-root': { 
+                height: '40px'
+              }, 
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#e2e8f0',
+                },
+              },
+            }}
+            placeholder="m@example.com"
+          />
+           <Grid container justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+            <Grid item>
+              <Typography variant="body2" component="label" htmlFor="password" sx={{ fontSize: '0.875rem', color: '#5c5cb0' }}>
+                Password
+              </Typography>
             </Grid>
-          </Box>
+            <Grid item>
+              <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
+                <Typography variant="body2" color="primary" sx={{ fontSize: '0.875rem' }}>
+                  Forgot your password?
+                </Typography>
+              </Link>
+            </Grid>
+          </Grid>
+          <TextField
+            required
+            fullWidth
+            name="password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{ 
+              mb: 1,  
+              '& .MuiInputBase-root': { 
+                height: '40px' 
+              }, 
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#e2e8f0',
+                },
+              },
+            }}
+          />
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ 
+              mt: 1, 
+              mb: 2, 
+              py: 1, 
+              bgcolor: '#5c5cb0',
+              textTransform: 'none',
+            }}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress size={24} /> : 'Login'}
+          </Button>
+          <Button
+            fullWidth
+            variant="outlined"
+            startIcon={<img src={GoogleIcon} alt="Google sign-in" />}
+            sx={{ 
+              mb: 2, 
+              py: 1,
+              borderColor: '#e2e8f0',
+              color: '#64748b',
+              justifyContent: 'center', 
+              textTransform: 'none',
+            }}
+            onClick={() => {
+              // TODO: Implement Google login
+            }}
+          >
+            Login with Google
+          </Button>
+          <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+            Don't have an account?{' '}
+            <Link to="/signup" style={{ textDecoration: 'none', color: '#5c5cb0', fontWeight: 'bold' }}>
+              Sign up
+            </Link>
+          </Typography>
         </Box>
-      </Grid>
-    </Grid>
+      </Paper>
+    </Box>
   );
 }
 
