@@ -49,39 +49,40 @@ function Login() {
         display: 'flex',
         flexGrow: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         backgroundColor: '#f5f5f5',
+        pt: 12,
       }}
     >
       <Paper
         elevation={3}
         sx={{
-          padding: 4,
+          padding: 3,
           borderRadius: 2,
           width: '100%',
-          maxWidth: 400,
+          maxWidth: 380,
           textAlign: 'center',
         }}
       >
         <Box
           sx={{
-            width: 60,
-            height: 60,
+            width: 50,
+            height: 50,
             backgroundColor: 'primary.main',
             mask: `url(${Logo}) no-repeat center / contain`,
             WebkitMask: `url(${Logo}) no-repeat center / contain`,
             margin: '0 auto',
-            marginBottom: '1rem',
+            marginBottom: '0.5rem',
           }}
         />
-        <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold', mb: 1, color: '#5c5cb0', fontSize: '1.5rem' }}>
+        <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold', mb: 0.5, color: '#5c5cb0', fontSize: '1.25rem' }}>
           Login
         </Typography>
-        <Typography variant="body2" sx={{ mb: 3, fontSize: '0.875rem', color: '#64748b' }}>
+        <Typography variant="body2" sx={{ mb: 2, fontSize: '0.75rem', color: '#64748b' }}>
           Enter your email below to login to your account
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit}>
-          <Typography variant="body2" component="label" htmlFor="email" sx={{ textAlign: 'left', display: 'block', mb: 1, fontSize: '0.875rem', color: '#5c5cb0' }}>
+          <Typography variant="body2" component="label" htmlFor="email" sx={{ textAlign: 'left', display: 'block', mb: 0.5, fontSize: '0.75rem', color: '#5c5cb0' }}>
             Email
           </Typography>
           <TextField
@@ -94,7 +95,7 @@ function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             sx={{ 
-              mb: 2,  
+              mb: 1.5,  
               '& .MuiInputBase-root': { 
                 height: '40px'
               }, 
@@ -102,19 +103,22 @@ function Login() {
                 '& fieldset': {
                   borderColor: '#e2e8f0',
                 },
+                '&:hover fieldset': {
+                  borderColor: '#e2e8f0',
+                },
               },
             }}
             placeholder="m@example.com"
           />
-           <Grid container justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+           <Grid container justifyContent="space-between" alignItems="center" sx={{ mb: 0.5 }}>
             <Grid item>
-              <Typography variant="body2" component="label" htmlFor="password" sx={{ fontSize: '0.875rem', color: '#5c5cb0' }}>
+              <Typography variant="body2" component="label" htmlFor="password" sx={{ fontSize: '0.75rem', color: '#5c5cb0' }}>
                 Password
               </Typography>
             </Grid>
             <Grid item>
               <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
-                <Typography variant="body2" color="primary" sx={{ fontSize: '0.875rem' }}>
+                <Typography variant="body2" color="primary" sx={{ fontSize: '0.75rem' }}>
                   Forgot your password?
                 </Typography>
               </Link>
@@ -138,11 +142,14 @@ function Login() {
                 '& fieldset': {
                   borderColor: '#e2e8f0',
                 },
+                '&:hover fieldset': {
+                  borderColor: '#e2e8f0',
+                },
               },
             }}
           />
           {error && (
-            <Alert severity="error" sx={{ mt: 2 }}>
+            <Alert severity="error" sx={{ mt: 1.5 }}>
               {error}
             </Alert>
           )}
@@ -152,7 +159,7 @@ function Login() {
             variant="contained"
             sx={{ 
               mt: 1, 
-              mb: 2, 
+              mb: 1.5, 
               py: 1, 
               bgcolor: '#5c5cb0',
               textTransform: 'none',
@@ -166,7 +173,7 @@ function Login() {
             variant="outlined"
             startIcon={<img src={GoogleIcon} alt="Google sign-in" />}
             sx={{ 
-              mb: 2, 
+              mb: 1.5, 
               py: 1,
               borderColor: '#e2e8f0',
               color: '#64748b',
@@ -179,7 +186,7 @@ function Login() {
           >
             Login with Google
           </Button>
-          <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+          <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
             Don't have an account?{' '}
             <Link to="/signup" style={{ textDecoration: 'none', color: '#5c5cb0', fontWeight: 'bold' }}>
               Sign up
