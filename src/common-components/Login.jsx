@@ -47,9 +47,9 @@ function Login() {
     <Box
       sx={{
         display: 'flex',
+        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: 'calc(100vh - 64px)', 
         backgroundColor: '#f5f5f5',
       }}
     >

@@ -59,16 +59,14 @@ function AppContent() {
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header handleCartOpen={handleCartOpen} />
       <Cart open={isCartOpen} onClose={handleCartClose} />
-      <Box component="main" sx={{ flexGrow: 1, py: 3 }}>
-        <Container>
-          <Routes>
-            <Route path="/" element={<PujaServices />} />
-            <Route path="/our-products" element={<OurProducts />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/admin" element={<Admin />} />
-          </Routes>
-        </Container>
+      <Box component="main" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        <Routes>
+          <Route path="/" element={<PujaServices />} />
+          <Route path="/our-products" element={<OurProducts />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
       </Box>
       <Footer />
     </Box>
