@@ -38,7 +38,7 @@ function OurProducts() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 12, mb: 4, textAlign: 'center' }}>
+    <Container maxWidth="xl" sx={{ mt: 12, mb: 4, textAlign: 'center' }}>
       <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#5c5cb0' }}>
         Our Products
       </Typography>
