@@ -1,8 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://localhost:3000';
-
 const getAuthHeader = () => {
   const token = Cookies.get('accessToken');
   if (token) {
@@ -13,6 +11,6 @@ const getAuthHeader = () => {
 
 export const getUserById = async (id) => {
   const headers = getAuthHeader();
-  const response = await axios.get(`${API_URL}/users/${id}`, { headers });
+  const response = await axios.get(`/users/${id}`, { headers });
   return response.data;
 };

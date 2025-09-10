@@ -6,8 +6,6 @@ import { getUserById } from '../services/UserService';
 
 export const AuthContext = createContext();
 
-const API_URL = 'http://localhost:3000';
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await axios.post(`${API_URL}/login`, { email, password });
+    const res = await axios.post(`/users/login`, { email, password });
     const { accessToken } = res.data;
     Cookies.set('accessToken', accessToken);
     const decodedToken = jwtDecode(accessToken);

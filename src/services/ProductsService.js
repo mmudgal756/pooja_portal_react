@@ -7,5 +7,5 @@ const apiClient = axios.create({
 });
 
 export const getProducts = () => {
-  return apiClient.get('/api/categories');
+  return apiClient.get('/categories');
 };

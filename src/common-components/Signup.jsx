@@ -30,7 +30,7 @@ function Signup() {
     setError(null);
 
     try {
-      await axios.post('/api/users/register', {
+      await axios.post('/users/register', {
         name,
         email,
         password,
