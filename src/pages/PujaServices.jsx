@@ -38,7 +38,7 @@ function PujaServices() {
       {!loading && !error && (
         <Grid container spacing={4} justifyContent="center">
           {services.map((service) => (
-            <Grid item key={service.id} xs={12} sm={6} md={4}>
+            <Grid key={services._id} xs={12} sm={6} md={4} lg={4} sx={{ flexBasis: '30%', maxWidth: '30%' }}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
                 <CardMedia
                   component="img"
