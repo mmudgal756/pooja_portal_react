@@ -3,6 +3,7 @@ import { Typography, Box, Grid, Card, CardMedia, Button, CircularProgress, Alert
 import { AddShoppingCart } from '@mui/icons-material';
 import { useCart } from '../context/CartContext';
 import havanSamagriKit from '../assets/images/havanKit.png';
+import placeholder from '../assets/images/placeholder.png';
 
 const dummyProducts = [
     {
@@ -127,7 +128,7 @@ function OurProducts() {
                 <CardMedia
                   component="img"
                   height="250"
-                  image={product.name === "Havan Samagri Kit" ? havanSamagriKit : (product.imageUrl || 'https://via.placeholder.com/600x400')}
+                  image={product.name === "Havan Samagri Kit" ? havanSamagriKit : (product.imageUrl || placeholder)}
                   alt={product.name}
                   sx={{ borderRadius: 1.5, mb: 2, height: '250px' }}
                 />
