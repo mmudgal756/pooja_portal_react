@@ -1,32 +1,84 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid, Card, CardMedia, Button, CircularProgress, Alert, Snackbar, Container } from '@mui/material';
 import { AddShoppingCart } from '@mui/icons-material';
-import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import havanSamagriKit from '../assets/images/havanKit.png';
 
+const dummyProducts = [
+    {
+        "_id": "68b9a4f1c0e076be83c9ba3e",
+        "name": "Havan Samagri Kit",
+        "description": "A complete kit with all essential items for performing a sacred Havan at home.",
+        "price": 20,
+        "category": "68b98705518c3ecbb1e94b34",
+        "stock": 0,
+        "createdAt": "2025-09-04T14:40:49.988Z",
+        "updatedAt": "2025-09-04T14:40:49.988Z",
+        "__v": 0
+    },
+    {
+        "_id": "68b9a522c0e076be83c9ba43",
+        "name": "Premium Agarbatti",
+        "description": "Aromatic incense sticks to create a divine and peaceful atmosphere during your puja.",
+        "price": 299,
+        "category": "68b98705518c3ecbb1e94b34",
+        "stock": 0,
+        "createdAt": "2025-09-04T14:41:38.353Z",
+        "updatedAt": "2025-09-04T14:41:38.353Z",
+        "__v": 0
+    },
+    {
+        "_id": "68b9a53cc0e076be83c9ba48",
+        "name": "Natural Dhoop Batti",
+        "description": "Pure and natural incense cones for a long-lasting and soothing fragrance.",
+        "price": 199,
+        "category": "68b98705518c3ecbb1e94b34",
+        "stock": 0,
+        "createdAt": "2025-09-04T14:42:04.599Z",
+        "updatedAt": "2025-09-04T14:42:04.599Z",
+        "__v": 0
+    },
+    {
+        "_id": "68b9a55cc0e076be83c9ba4d",
+        "name": "Pure Ganga Jal",
+        "description": "Sacred water from the Ganges, essential for purification rituals and offerings.",
+        "price": 99,
+        "category": "68b98705518c3ecbb1e94b34",
+        "stock": 0,
+        "createdAt": "2025-09-04T14:42:36.036Z",
+        "updatedAt": "2025-09-04T14:42:36.036Z",
+        "__v": 0
+    },
+    {
+        "_id": "68b9a57ac0e076be83c9ba52",
+        "name": "Brass Diya Set",
+        "description": "Set of two beautifully crafted brass diyas to illuminate your sacred space.",
+        "price": 399,
+        "category": "68b98705518c3ecbb1e94b34",
+        "stock": 0,
+        "createdAt": "2025-09-04T14:43:06.111Z",
+        "updatedAt": "2025-09-04T14:43:06.111Z",
+        "__v": 0
+    },
+    {
+        "_id": "68b9a59ec0e076be83c9ba57",
+        "name": "Puja Thali Set",
+        "description": "A complete puja thali set in decorative steel, including all necessary items.",
+        "price": 599,
+        "category": "68b98705518c3ecbb1e94b34",
+        "stock": 0,
+        "createdAt": "2025-09-04T14:43:42.700Z",
+        "updatedAt": "2025-09-04T14:43:42.700Z",
+        "__v": 0
+    }
+]
+
 function OurProducts() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState(dummyProducts);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const { onAddToCart } = useCart();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('/api/products/category/Products');
-        setProducts(response.data);
-      } catch (err) {
-        setError('There was an error fetching the products. Please try again later.');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
 
   const handleAddToCart = (product) => {
     onAddToCart(product);
