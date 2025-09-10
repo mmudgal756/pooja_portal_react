@@ -50,9 +50,9 @@ function OurProducts() {
       {error && <Alert severity="error">{error}</Alert>}
 
       {!loading && !error && (
-        <Grid container spacing={4} justifyContent="center">
-          {products.slice(0, 3).map((product) => (
-            <Grid item key={product._id} xs={12} sm={4} md={4}>
+        <Grid container spacing={4}>
+          {products.map((product) => (
+            <Grid item key={product._id} xs={12} sm={6} md={4}>
               <Card sx={{ 
                 height: '100%', 
                 display: 'flex', 
