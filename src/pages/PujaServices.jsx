@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid, Card, CardMedia, Button, CircularProgress, Alert, Container } from '@mui/material';
 import axios from 'axios';
+import placeholder from '../assets/images/placeholder.png';
 
 function PujaServices() {
   const [services, setServices] = useState([]);
@@ -61,7 +62,7 @@ function PujaServices() {
                 <CardMedia
                   component="img"
                   height="250"
-                  image={service.imageUrl || 'https://via.placeholder.com/600x400'}
+                  image={service.imageUrl || placeholder}
                   alt={service.name}
                   sx={{ borderRadius: 1.5, mb: 2, height: '250px' }}
                 />
