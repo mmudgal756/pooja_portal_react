@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Box, Grid, Card, CardContent, CardMedia, CircularProgress, Alert } from '@mui/material';
+import { Typography, Box, Grid, Card, CardMedia, Button, CircularProgress, Alert, Container } from '@mui/material';
 import axios from 'axios';
 
 function PujaServices() {
@@ -24,12 +24,12 @@ function PujaServices() {
   }, []);
 
   return (
-    <Box sx={{ mt: 4, textAlign: 'center' }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Pooja Services
+    <Container maxWidth="xl" sx={{ mt: 12, mb: 4, textAlign: 'center' }}>
+      <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#5c5cb0' }}>
+        Puja Services
       </Typography>
-      <Typography variant="body1" sx={{ mb: 4 }}>
-        Book our expert Pandits for your sacred ceremonies. We provide experienced and knowledgeable priests for all your ritual needs.
+      <Typography variant="body1" sx={{ mb: 6, color: '#64748b' }}>
+        Book our authentic and reliable puja services for a divine experience.
       </Typography>
 
       {loading && <CircularProgress />}
@@ -38,31 +38,51 @@ function PujaServices() {
       {!loading && !error && (
         <Grid container spacing={4} justifyContent="center">
           {services.map((service) => (
-            <Grid key={services._id} xs={12} sm={6} md={4} lg={4} sx={{ flexBasis: '30%', maxWidth: '30%' }}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+            <Grid item key={service._id} xs={12} sm={6} md={4} lg={4} sx={{ flexBasis: '30%', maxWidth: '30%' }}>
+              <Card sx={{ 
+                height: '100%', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                textAlign: 'left',
+                borderRadius: 2,
+                boxShadow: '0px 4px 12px rgba(0,0,0,0.05)',
+                p: 2,
+                transition: 'transform 0.2s',
+                '&:hover': {
+                  transform: 'scale(1.02)'
+                }
+              }}>
+                <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: '#5c5cb0', fontSize: '1.1rem' }}>
+                  {service.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: '0.8rem', minHeight: '40px' }}>
+                  {service.description}
+                </Typography>
                 <CardMedia
                   component="img"
-                  height="140"
-                  image={service.imageUrl || 'https://via.placeholder.com/150'}
+                  height="250"
+                  image={service.imageUrl || 'https://via.placeholder.com/600x400'}
                   alt={service.name}
+                  sx={{ borderRadius: 1.5, mb: 2, height: '250px' }}
                 />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {service.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {service.description}
-                  </Typography>
-                  <Typography variant="h6" component="p" sx={{ mt: 2, fontWeight: 'bold', color: 'primary.main' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
+                  <Typography variant="h6" component="p" sx={{ fontWeight: 'bold', color: '#5c5cb0', fontSize: '1rem' }}>
                     ₹{service.price}
                   </Typography>
-                </CardContent>
+                  <Button 
+                    variant="outlined" 
+                    color="primary" 
+                    sx={{ textTransform: 'none', fontSize: '0.8rem', borderColor: '#e2e8f0', color: '#5c5cb0' }}
+                  >
+                    Book Now
+                  </Button>
+                </Box>
               </Card>
             </Grid>
           ))}
         </Grid>
       )}
-    </Box>
+    </Container>
   );
 }
 
