@@ -50,7 +50,7 @@ function OurProducts() {
       {error && <Alert severity="error">{error}</Alert>}
 
       {!loading && !error && (
-        <Grid container spacing={4}>
+        <Grid container spacing={4} justifyContent="center">
           {products.map((product) => (
             <Grid item key={product._id} xs={12} sm={6} md={4} lg={4}>
               <Card sx={{ 
