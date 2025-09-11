@@ -11,7 +11,7 @@ function PujaServices() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('/products/category/Anusthans');
+        const response = await axios.get('api/productcs/category/Anusthans');
         setServices(response.data);
       } catch (err) {
         setError('There was an error fetching the puja services. Please try again later.');
