@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid, Card, CardMedia, Button, CircularProgress, Alert, Container } from '@mui/material';
-import axios from 'axios';
+import { getPujaServices } from '../services/ProductsService';
 import placeholder from '../assets/images/placeholder.png';
 
 function PujaServices() {
@@ -11,8 +11,8 @@ function PujaServices() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('api/productcs/category/Anusthans');
-        setServices(response.data);
+        const data = await getPujaServices();
+        setServices(data);
       } catch (err) {
         setError('There was an error fetching the puja services. Please try again later.');
         console.error(err);

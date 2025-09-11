@@ -1,11 +1,6 @@
-import axios from 'axios';
+import apiClient from './apiClient';
 
-const apiClient = axios.create({
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-export const getProducts = () => {
-  return apiClient.get('/categories');
+export const getPujaServices = async () => {
+  const { data } = await apiClient.get('/products/category/Anusthans');
+  return data;
 };
