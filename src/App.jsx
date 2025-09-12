@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box, Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Header from './common-components/Header';
 import Footer from './common-components/Footer';
-import PujaServices from './pages/PujaServices';
+import AnusthanComponent from './pages/Anusthans';
 import OurProducts from './pages/OurProducts';
 import Login from './common-components/Login';
 import Signup from './common-components/Signup';
@@ -61,7 +61,7 @@ function AppContent() {
       <Cart open={isCartOpen} onClose={handleCartClose} />
       <Box component="main" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
         <Routes>
-          <Route path="/" element={<PujaServices />} />
+          <Route path="/" element={<AnusthanComponent />} />
           <Route path="/our-products" element={<OurProducts />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

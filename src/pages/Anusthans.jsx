@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid, Card, CardMedia, Button, CircularProgress, Alert, Container } from '@mui/material';
-import { getPujaServices } from '../services/ProductsService';
+import { getAnusthans } from '../services/AnusthanService';
 import placeholder from '../assets/images/placeholder.png';
 
-function PujaServices() {
+function AnusthanComponent() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ function PujaServices() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const data = await getPujaServices();
+        const data = await getAnusthans();
         setServices(data);
       } catch (err) {
         setError('There was an error fetching the puja services. Please try again later.');
@@ -87,4 +87,4 @@ function PujaServices() {
   );
 }
 
-export default PujaServices;
+export default AnusthanComponent;

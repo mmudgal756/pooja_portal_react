@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await axios.post(`/users/login`, { email, password });
+    const res = await axios.post(`api/users/login`, { email, password });
     const { accessToken } = res.data;
     Cookies.set('accessToken', accessToken);
     const decodedToken = jwtDecode(accessToken);

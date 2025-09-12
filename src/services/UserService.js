@@ -11,6 +11,6 @@ const getAuthHeader = () => {
 
 export const getUserById = async (id) => {
   const headers = getAuthHeader();
-  const response = await axios.get(`/users/${id}`, { headers });
+  const response = await axios.get(`api/users/${id}`, { headers });
   return response.data;
 };
