@@ -31,7 +31,7 @@ function ProductManagement() {
   }, []);
 
   const fetchProducts = async () => {
-    const { data } = await getProducts();
+    const { data } = await getProducts();    
     setProducts(data);
   };
 

@@ -1,7 +1,7 @@
 import apiClient from './apiClient';
 
-export const getProducts = () => {
-  return apiClient.get('/api/products/category/Products');
+export const getProducts = async() => {
+   return apiClient.get('/api/products/category/Products');
 };
 
 export const saveProduct = (product) => {

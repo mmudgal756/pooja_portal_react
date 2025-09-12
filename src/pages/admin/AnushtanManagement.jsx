@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAnushtans, saveAnushtan, deleteAnushtan, getCategories } from '../../services/AnushtanService';
+import { getAnusthans, saveAnushtan, deleteAnushtan, getCategories } from '../../services/AnusthanService';
 import AdminTable from '../../common-components/AdminTable';
 import AdminDialog from '../../common-components/AdminDialog';
 import { Button, Box, Typography } from '@mui/material';
@@ -31,7 +31,7 @@ function AnushtanManagement() {
   }, []);
 
   const fetchAnushtans = async () => {
-    const { data } = await getAnushtans();
+    const { data } = await getAnusthans();    
     setAnushtans(data);
   };
 

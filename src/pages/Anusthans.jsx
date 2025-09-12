@@ -11,7 +11,7 @@ function AnusthanComponent() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const data = await getAnusthans();
+        const {data} = await getAnusthans();
         setServices(data);
       } catch (err) {
         setError('There was an error fetching the puja services. Please try again later.');
