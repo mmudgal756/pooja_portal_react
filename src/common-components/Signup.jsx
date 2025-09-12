@@ -8,12 +8,11 @@ import {
   CircularProgress,
   Alert,
   Paper,
-  Grid,
 } from '@mui/material';
-import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import Logo from '../assets/images/logo.svg';
 import GoogleIcon from '../assets/images/Google.svg';
+import { register } from '../services/UserService';
 
 function Signup() {
   const [name, setName] = useState('');
@@ -30,13 +29,14 @@ function Signup() {
     setError(null);
 
     try {
-      await axios.post('/users/register', {
+      const payload = {
         name,
         email,
         password,
-      });
+      }
+      await register(payload);
 
-      await login(email, password);
+     //  await login(email, password);
       
       navigate('/');
     } catch (error) {

@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { getUserById } from '../services/UserService';
+import apiClient from '../services/apiClient.js';
 
 export const AuthContext = createContext();
 
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
-          const userId = decodedToken.sub; // Assuming 'sub' claim holds the user ID
+          const userId = decodedToken.id; // Assuming 'id' claim holds the user ID
           const userData = await getUserById(userId);
           setUser(userData);
         } catch (error) {
@@ -31,11 +31,12 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await axios.post(`api/users/login`, { email, password });
-    const { accessToken } = res.data;
+    const payload = { email, password }
+    const res = await login(payload);
+    const { accessToken } = res;
     Cookies.set('accessToken', accessToken);
     const decodedToken = jwtDecode(accessToken);
-    const userId = decodedToken.sub; // Assuming 'sub' claim holds the user ID
+    const userId = decodedToken.id; // Assuming 'id' claim holds the user ID
     const userData = await getUserById(userId);
     setUser(userData);
   };
