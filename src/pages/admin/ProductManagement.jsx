@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { getProducts, saveProduct, deleteProduct, getCategories } from '../../services/ProductService';
 import AdminTable from '../../common-components/AdminTable';
 import AdminDialog from '../../common-components/AdminDialog';
 import { Button, Box, Typography } from '@mui/material';
@@ -31,13 +31,13 @@ function ProductManagement() {
   }, []);
 
   const fetchProducts = async () => {
-    const { data } = await axios.get('/api/products/category/Products');
+    const { data } = await getProducts();
     setProducts(data);
   };
 
   const fetchCategories = async () => {
     try {
-      const { data } = await axios.get('/api/categories');
+      const { data } = await getCategories();
       setCategories(data);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -55,17 +55,13 @@ function ProductManagement() {
   };
 
   const handleSave = async (item) => {
-    if (item._id) {
-      await axios.put(`/api/products/${item._id}`, item);
-    } else {
-      await axios.post('/api/products', item);
-    }
+    await saveProduct(item);
     fetchProducts();
     handleClose();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/api/products/${id}`);
+    await deleteProduct(id);
     fetchProducts();
   };
 

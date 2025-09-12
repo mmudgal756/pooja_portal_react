@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { getAnushtans, saveAnushtan, deleteAnushtan, getCategories } from '../../services/AnushtanService';
 import AdminTable from '../../common-components/AdminTable';
 import AdminDialog from '../../common-components/AdminDialog';
 import { Button, Box, Typography } from '@mui/material';
@@ -31,13 +31,13 @@ function AnushtanManagement() {
   }, []);
 
   const fetchAnushtans = async () => {
-    const { data } = await axios.get('/api/products/category/Anusthans');
+    const { data } = await getAnushtans();
     setAnushtans(data);
   };
 
   const fetchCategories = async () => {
     try {
-      const { data } = await axios.get('/api/categories');
+      const { data } = await getCategories();
       setCategories(data);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -55,17 +55,13 @@ function AnushtanManagement() {
   };
 
   const handleSave = async (item) => {
-    if (item._id) {
-      await axios.put(`/api/products/${item._id}`, item);
-    } else {
-      await axios.post('/api/products', item);
-    }
+    await saveAnushtan(item);
     fetchAnushtans();
     handleClose();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/api/products/${id}`);
+    await deleteAnushtan(id);
     fetchAnushtans();
   };
 
